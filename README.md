@@ -47,3 +47,5 @@ To run this project in a Podman container using Visual Studio Code, follow these
     - Mount your code inside `/home/dev/app`
     - Install extensions and run poetry install
     - Open VS Code inside the container as the `dev` user
+
+1. **Awesome**, you're ready to build the next thing! 🎉🎉🎉
