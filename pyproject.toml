@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "python-podman-template"
+version = "0.1.0"
+description = "Minimal Podman-based Python template"
+authors = ["bsr-the-mngrm <me@sandorbakos.com>"]
+readme = "README.md"
+packages = [{ include = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.13"
+
+[tool.poetry.dev-dependencies]
+pytest = "^8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
