@@ -35,4 +35,13 @@ To run this project in a Podman container using Visual Studio Code, follow these
     cp .vscode/settings.json.template .vscode/settings.json
     ```
     💡 These files define your development container and workspace settings. You can modify them to suit your project needs.
+
+1. **Launch Dev Container**
     
+    Run: `Ctrl + Shift + P` → "**Dev Containers: Reopen in Container**"
+
+    VS Code will:
+    - Build your container using `Containerfile`
+    - Mount your code inside `/home/dev/app`
+    - Install extensions and run poetry install
+    - Open VS Code inside the container as the `dev` user
