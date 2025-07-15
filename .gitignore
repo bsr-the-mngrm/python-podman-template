@@ -1,3 +1,21 @@
+# Poetry dependency management
+poetry.lock
+
+# VSCode settings
+.vscode/**
+settings.json
+launch.json
+tasks.json
+!settings.json.template
+
+# Container settings
+.devcontainer/**
+devcontainer.json
+!devcontainer.json.template
+
+# Development environment files
+scratch/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
