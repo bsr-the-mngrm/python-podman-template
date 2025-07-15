@@ -26,3 +26,13 @@ To run this project in a Podman container using Visual Studio Code, follow these
     "containers.containerClient": "com.microsoft.visualstudio.containers.podman",
     "dev.containers.dockerPath": "podman",
     ``` 
+
+1. **Copy Template Files**
+
+    To set up your development environment, copy the provided template files to their active locations:
+    ```bash
+    cp .devcontainer/devcontainer.json.template .devcontainer/devcontainer.json
+    cp .vscode/settings.json.template .vscode/settings.json
+    ```
+    💡 These files define your development container and workspace settings. You can modify them to suit your project needs.
+    
