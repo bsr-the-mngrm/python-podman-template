@@ -21,10 +21,12 @@ To run this project in a Podman container using Visual Studio Code, follow these
 
 1. **Add the following settings**
     - Insert the following key-value pairs into your `settings.json` file:
-    - This tells VS Code to use Podman instead of Docker when working with Dev Containers.
+    - This tells VS Code to use Podman instead of Docker when working with Dev Containers 
+    - And disable GUI-related socket mounting in Dev Containers (not to attempt to mount the wayland-0 socket, which avoids the UNC mount error).
     ```json
     "containers.containerClient": "com.microsoft.visualstudio.containers.podman",
     "dev.containers.dockerPath": "podman",
+    "dev.containers.mountWaylandSocket": false,
     ``` 
 
 1. **Copy Template Files**
