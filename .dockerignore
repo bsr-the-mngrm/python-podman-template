@@ -1,0 +1,29 @@
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.so
+
+# Virtual environments (never needed inside container)
+.env
+.venv/
+venv/
+ENV/
+env/
+
+# Editor/IDE files
+*.swp
+*.swo
+*~
+.idea/
+*.log
+
+# System / OS files
+.DS_Store
+Thumbs.db
+
+# Artifacts
+*.backup
+*.old
