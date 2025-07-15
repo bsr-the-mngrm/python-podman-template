@@ -1,2 +1,28 @@
 # python-podman-template
 📦 Python project template with Podman support — easily containerize and run your Python apps using a minimal, ready-to-use Podman setup.
+
+## ✅ Prerequisites
+Before you begin, make sure the following tools are installed and properly configured on your system:
+- Operating System: Windows 10 or 11 (with WSL2 enabled)
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [Podman](https://podman.io/)
+- [Podman Desktop](https://podman.io/podman-desktop)
+- [Remote - Containers extension for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+
+⚠️ This template assumes you are using Podman as a Docker replacement under WSL2 and running VS Code on Windows.
+
+## 🚀 Getting Started with Podman in VS Code
+To run this project in a Podman container using Visual Studio Code, follow these initial setup steps:
+
+1. **Open User Settings (JSON)**
+    1. Open **Visual Studio Code**.
+    1. Press `Ctrl + Shift + P` to open the Command Palette.
+    1. Search for "**Preferences: Open User Settings (JSON)**" and select it.
+
+1. **Add the following settings**
+    - Insert the following key-value pairs into your `settings.json` file:
+    - This tells VS Code to use Podman instead of Docker when working with Dev Containers.
+    ```json
+    "containers.containerClient": "com.microsoft.visualstudio.containers.podman",
+    "dev.containers.dockerPath": "podman",
+    ``` 
