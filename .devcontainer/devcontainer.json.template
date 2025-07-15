@@ -1,0 +1,17 @@
+{
+  "name": "Python Podman Dev",
+  "build": {
+    "dockerfile": "../Containerfile",
+    "context": ".."
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance"
+      ]
+    }
+  },
+  "postCreateCommand": "poetry install",
+  "remoteUser": "dev"
+}
