@@ -1,5 +1,6 @@
 # src/app.py
 
+
 def greet(name: str) -> str:
     """
     Returns a greeting message.
