@@ -17,3 +17,20 @@ format: ## Format code using black
 
 test: ## Run tests using pytest
 	poetry run pytest
+
+clean: ## Remove Python and build artifacts
+	find . -type d -name '__pycache__' -exec rm -rf {} + ;
+	find . -type f -name '*.py[cod]' -delete ;
+	rm -rf .pytest_cache .mypy_cache .ruff_cache .venv dist build
+
+check: ## Run all quality checks (lint, format check, test)
+	poetry run ruff check .
+	poetry run black --check .
+	poetry run pytest
+
+ci: check ## Alias for CI pipelines (same as check)
+
+coverage: ## Run pytest with coverage report
+	poetry run pytest --cov=src --cov-report=term-missing
+
+.PHONY: help lint format test clean check ci coverage
