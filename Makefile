@@ -33,4 +33,11 @@ ci: check ## Alias for CI pipelines (same as check)
 coverage: ## Run pytest with coverage report
 	poetry run pytest --cov=src --cov-report=term-missing
 
-.PHONY: help lint format test clean check ci coverage
+format-check: ## Check if code is correctly formatted
+	poetry run black --check .
+
+security: ## Run bandit for security linting
+	poetry run bandit -r src
+
+.PHONY: help lint format format-check test clean check ci coverage security
+
