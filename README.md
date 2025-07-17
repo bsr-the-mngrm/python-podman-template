@@ -62,9 +62,9 @@ The diagram below illustrates how this template works during local development w
         |    podman run                                           |
         |  (mount source, expose port)                            |
         v                                                         v
-+-------------------+                                   +-------------------+
++-------------------+                                   +--------------------+
 | Host Shell / IDE  | <--------- localhost:8000 --------|  Running Container |
 | (e.g., VSCode)    |                                   |  (Python app)      |
-+-------------------+                                   +-------------------+
++-------------------+                                   +--------------------+
 
 ```
