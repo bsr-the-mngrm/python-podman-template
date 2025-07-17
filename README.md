@@ -49,3 +49,22 @@ To run this project in a Podman container using Visual Studio Code, follow these
     - Open VS Code inside the container as the `dev` user
 
 1. **Awesome**, you're ready to build the next thing! 🎉🎉🎉
+
+## 🔧 Local Development Workflow
+
+The diagram below illustrates how this template works during local development with Podman:
+```
++-------------------+           podman build          +---------------------+
+| Local Dev Machine | ----------------------------->  | Python Container    |
+| (Code, Makefile)  |                                 | Image               |
++-------------------+                                 +---------------------+
+        |                                                         |
+        |    podman run                                           |
+        |  (mount source, expose port)                            |
+        v                                                         v
++-------------------+                                   +-------------------+
+| Host Shell / IDE  | <--------- localhost:8000 --------|  Running Container |
+| (e.g., VSCode)    |                                   |  (Python app)      |
++-------------------+                                   +-------------------+
+
+```
