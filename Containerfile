@@ -1,30 +1,42 @@
 # Containerfile
-
 FROM python:3.13-slim
 
-ENV POETRY_HOME="/opt/poetry"
-ENV PATH="${POETRY_HOME}/bin:${PATH}"
-
-# Create non-root user
-RUN useradd -ms /bin/bash dev
-
-# Install dependencies
+# 1) System deps
 RUN apt-get update && \
-    apt-get install -y curl build-essential python3-dev git && \
-    curl -sSL https://install.python-poetry.org | python3 - --version 2.1.1 && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    apt-get install -y --no-install-recommends \
+    curl git gcc libffi-dev libpq-dev build-essential python3-dev python3-pip && \
+    rm -rf /var/lib/apt/lists/*
 
-# Set workdir and copy only pyproject files for layer caching
+# 2) Install uv into /usr/local/bin
+RUN curl -LsSf https://astral.sh/uv/install.sh | UV_INSTALL_DIR=/usr/local/bin sh
+
+# 3) Install Poetry + export plugin, disable its venvs
+ENV POETRY_HOME="/opt/poetry" \
+    PATH="/opt/poetry/bin:/usr/local/bin:$PATH"
+RUN curl -sSL https://install.python-poetry.org | python3 - --version 2.1.1 && \
+    poetry self add poetry-plugin-export && \
+    poetry config virtualenvs.create false
+
+# 4) Create non‑root user & workdir
+RUN useradd -ms /bin/bash dev
 WORKDIR /home/dev/app
+
+# 5) Copy lockfiles for caching
 COPY --chown=dev:dev pyproject.toml poetry.lock* ./
 
-# Install dependencies without root
-RUN poetry install --no-root
+# 6) Export & install ALL deps (main + dev) via Poetry → uv pip
+RUN poetry export \
+    --format requirements.txt \
+    --without-hashes \
+    --with main \
+    --with dev \
+    | uv pip install --system -r /dev/stdin
 
-# Copy remaining source files
+# 7) Copy source
 COPY --chown=dev:dev . .
 
-# Use non-root user
+# 8) Switch to non‑root
 USER dev
 
-CMD ["poetry", "run", "python", "src/app.py"]
+# 9) Default command
+CMD ["python", "-m", "src"]
