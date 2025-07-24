@@ -1,43 +1,53 @@
 # Makefile
 
+# Colors
+CYAN=\033[36m
+RESET=\033[0m
+
 # Help: Show all make targets
 help: ## Show this help message
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
-		| sort \
-		| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-16s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | \
+	awk 'BEGIN {FS = ":.*?## "}; {printf "$(CYAN)%-20s$(RESET) %s\n", $$1, $$2}'
 
-install: ## Install dependencies using Poetry
-	poetry install
+requirements: ## Export requirements.txt for use with uv
+	poetry export --without-hashes --with-credentials --all-extras --dev -f requirements.txt --output requirements.txt
 
-lint: ## Run lint checks using ruff
-	poetry run ruff check .
+lint: ## Run lint checks using Ruff
+	ruff check .
 
-format: ## Format code using black
-	poetry run black .
+format: ## Format code using Black
+	black .
 
-test: ## Run tests using pytest
-	poetry run pytest
+format-check: ## Check if code is correctly formatted
+	black --check .
 
-clean: ## Remove Python and build artifacts
-	find . -type d -name '__pycache__' -exec rm -rf {} + ;
-	find . -type f -name '*.py[cod]' -delete ;
-	rm -rf .pytest_cache .mypy_cache .ruff_cache .venv dist build
+test: ## Run tests using Pytest
+	pytest
 
-check: ## Run all quality checks (lint, format check, test)
-	poetry run ruff check .
-	poetry run black --check .
-	poetry run pytest
+type-check: ## Run static type checks using Pyright
+	pyright
+
+security: ## Run Bandit for security linting
+	bandit -r src
+
+pre-commit: ## Run all pre-commit hooks
+	pre-commit run --all-files
+
+check: ## Run all quality checks (lint, format, type-check, test)
+	ruff check .
+	black --check .
+	pyright
+	pytest
 
 ci: check ## Alias for CI pipelines (same as check)
 
-coverage: ## Run pytest with coverage report
-	poetry run pytest --cov=src --cov-report=term-missing
+coverage: ## Run tests with coverage report
+	pytest --cov=src --cov-report=term-missing
 
-format-check: ## Check if code is correctly formatted
-	poetry run black --check .
+clean: ## Remove Python and build artifacts
+	find . -type d -name '__pycache__' -exec rm -rf {} +
+	find . -type f -name '*.py[cod]' -delete
+	rm -rf .pytest_cache .ruff_cache dist build
 
-security: ## Run bandit for security linting
-	poetry run bandit -r src
-
-.PHONY: help lint format format-check test clean check ci coverage security
-
+.PHONY: help requirements lint format format-check test type-check \
+        security osv pre-commit check ci coverage clean
