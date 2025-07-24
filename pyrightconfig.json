@@ -1,0 +1,14 @@
+{
+  "include": [
+    "src",
+    "tests"
+  ],
+  "extraPaths": [
+    "src",
+    "/usr/local/lib/python3.13/site-packages"
+  ],
+  "typeCheckingMode": "strict",
+  "pythonVersion": "3.13",
+  "reportMissingImports": true,
+  "reportMissingTypeStubs": false
+}
