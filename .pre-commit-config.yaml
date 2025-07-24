@@ -1,0 +1,28 @@
+repos:
+  - repo: https://github.com/psf/black
+    rev: 25.1.0
+    hooks:
+      - id: black
+        language_version: python3.13
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.12.5
+    hooks:
+      - id: ruff
+        args: ["--unsafe-fixes"] # Optional: auto-fix more things
+        language_version: python3.13
+
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.8.6
+    hooks:
+      - id: bandit
+        args: ["-r", "src"]
+        language_version: python3.13
+
+  - repo: local
+    hooks:
+      - id: pyright
+        name: pyright
+        entry: pyright
+        language: system
+        types: [python]
