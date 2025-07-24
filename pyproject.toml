@@ -15,7 +15,8 @@ ruff = "^0.12.4"
 pytest = "^8.4.1"
 pytest-cov = "^6.2.1"
 bandit = "^1.8.6"
-pip-audit = "^2.9.0"
+pyright = "^1.1.403"
+pre-commit = "^4.2.0"
 
 [build-system]
 requires = ["poetry-core"]
